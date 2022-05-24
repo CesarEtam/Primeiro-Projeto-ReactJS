@@ -1,4 +1,5 @@
 import { useState, KeyboardEvent } from 'react'
+import { toast } from 'react-toastify'
 import * as C from './styles'
 
 type Props = {
@@ -9,9 +10,13 @@ export const AddArea = ({ onEnter }: Props) => {
     const [inputText, setInputText] = useState('')
 
     const handleKeyUp = (e: KeyboardEvent) => {
-        if (e.code === 'Enter' && inputText !== '') {
-            onEnter(inputText)
-            setInputText('')
+        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+            if (inputText !== '') {
+                onEnter(inputText)
+                setInputText('')
+            } else {
+                toast("Digite uma tarefa!")
+            }
         }
     }
 
